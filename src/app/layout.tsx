@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import I18nServer from "@/app/components/i18n-server";
+import { getLocaleOnServer } from "@/i18n/server"
+
 import "./globals.css";
 
 const geistSans = localFont({
@@ -23,10 +26,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = getLocaleOnServer();
   return (
-    <html lang="en">
+    <html lang={locale ?? "en"}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <I18nServer>{children}</I18nServer>
       </body>
     </html>
   );
